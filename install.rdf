@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<r:RDF xmlns="http://www.mozilla.org/2004/em-rdf#"
+       xmlns:r="http://www.w3.org/1999/02/22-rdf-syntax-ns#">
+  <r:Description about="urn:mozilla:install-manifest">
+    <creator>Erik Vold</creator>
+    <id>openlink@erikvold.com</id>
+    <name>Open Link</name>
+    <version>1</version>
+    <type>2</type>
+
+    <contributor>Melih Bilgil; http://picol.org</contributor>
+
+    <!-- Fennec -->
+    <targetApplication>
+      <r:Description>
+        <id>{a23983c0-fd0e-11dc-95ff-0800200c9a66}</id>
+        <minVersion>4.0b2</minVersion>
+        <maxVersion>4.0b4pre</maxVersion>
+      </r:Description>
+    </targetApplication>
+  </r:Description>
+</r:RDF>
