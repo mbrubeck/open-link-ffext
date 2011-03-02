@@ -55,7 +55,9 @@ function load(win) {
   label.setAttribute("value", "Open Link");
   item.appendChild(label);
 
-  document.getElementById("context-commands").appendChild(item);
+  let openInNewTab = document.getElementById("context-openinnewtab");
+  let commands = document.getElementById("context-commands");
+  commands.insertBefore(item, openInNewTab);
 }
 
 function unload(win) {
