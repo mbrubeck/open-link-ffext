@@ -1,4 +1,0 @@
-
-content    openlink content/
-
-overlay    chrome://browser/content/browser.xul chrome://openlink/content/browser.xul
