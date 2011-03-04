@@ -65,6 +65,22 @@ function unload(win) {
   item.parentNode.removeChild(item);
 }
 
+var listener = {
+  onOpenWindow: function(aWindow) {
+    // Wait for the window to finish loading
+    let win = aWindow.QueryInterface(Ci.nsIInterfaceRequestor)
+                     .getInterface(Ci.nsIDOMWindowInternal);
+    win.addEventListener("UIReady", function(aEvent) {
+      win.removeEventListener(aEvent.name, arguments.callee, false);
+      load(win);
+    }, false);
+  },
+
+  // Unused:
+  onCloseWindow: function(aWindow) { },
+  onWindowTitleChange: function(aWindow, aTitle) { }
+};
+
 /* Bootstrap Interface */
 
 function startup(aData, aReason) {
@@ -76,24 +92,11 @@ function startup(aData, aReason) {
   }
 
   // Load in future windows.
-  Services.wm.addListener({
-    onOpenWindow: function(aWindow) {
-      // Wait for the window to finish loading
-      let win = aWindow.QueryInterface(Ci.nsIInterfaceRequestor)
-                       .getInterface(Ci.nsIDOMWindowInternal);
-      win.addEventListener("UIReady", function(aEvent) {
-        win.removeEventListener(aEvent.name, arguments.callee, false);
-        load(win);
-      }, false);
-    },
-
-    // Unused:
-    onCloseWindow: function(aWindow) { },
-    onWindowTitleChange: function(aWindow, aTitle) { }
-  });
+  Services.wm.addListener(listener);
 }
 
 function shutdown(aData, aReason) {
+  Services.wm.removeListener(listener);
   if (aReason == APP_SHUTDOWN)
     return;
 
